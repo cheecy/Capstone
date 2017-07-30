@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+
+var express = require('express')
+var router = express.Router()
+var uploadController = require('../controllers/upload.server.controller')
+router.get('/', uploadController.index)
+router.get('/load', uploadController.load)
+router.get('/upload', uploadController.upload, uploadController.publish)
+
+module.exports = router

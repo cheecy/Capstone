@@ -1,0 +1,41 @@
+/**
+ * The file to start a server
+ *
+ */
+
+var express = require('express');
+var path = require('path')
+
+var createFolder = function(folder){
+    try{
+        fs.accessSync(folder); 
+    }catch(e){
+        fs.mkdirSync(folder);
+    }  
+};
+
+var uploadFolder = './upload/';
+createFolder(uploadFolder);
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);  
+    }
+});
+var upload = multer({ storage: storage })
+
+var routes = require('./app/routes/upload.server.routes')
+
+var app = express()
+app.set('views', path.join(__dirname,'app','views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/',routes)
+app.listen(3000, function () {
+	  console.log('Revision app listening on port 3000!')
+	})
+	
+module.exports = app;

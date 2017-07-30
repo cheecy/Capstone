@@ -1,0 +1,31 @@
+thead
+	tr
+		th Display in chart
+		th User Name
+		th Counts
+tbody
+	tr
+		td 
+			input#user0(class='check', type='checkbox')
+		td(class='user') #{results[0]._id}
+		td #{results[0].count}
+	tr
+		td 
+			input(class='check', type='checkbox')
+		td(class='user') #{results[1]._id}
+		td #{results[1].count}
+	tr
+		td 
+			input(class='check', type='checkbox')
+		td(class='user') #{results[2]._id}
+		td #{results[2].count}
+	tr
+		td 
+			input(class='check', type='checkbox')
+		td(class='user') #{results[3]._id}
+		td #{results[3].count}
+	tr
+		td 
+			input(class='check', type='checkbox')
+		td(class='user') #{results[4]._id}
+		td #{results[4].count}

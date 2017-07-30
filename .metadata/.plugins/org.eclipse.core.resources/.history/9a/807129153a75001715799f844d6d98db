@@ -1,0 +1,55 @@
+
+module.exports.index = function (req, res) {
+	res.render("mainpage.pug")
+}
+module.exports.getSelecter = function(req, res) {
+	Revision.findArticleCounts(function(err, results){
+		if (err){
+			console.log("Find selecter Error")
+		}else{
+			var counts = results
+			var overallCounts = 0
+			for (var i = 0; i < counts.length; i ++) {
+				overallCounts += counts[i].count
+			}
+			counts.splice(0, 0, {_id: 'Overall', count: overallCounts})
+			//var countsJson = JSON.stringify(counts);
+			var countsJson = JSON.parse(JSON.stringify(counts))
+			//console.log(countsJson)
+			res.json(counts)
+		}
+	})
+}
+
+module.exports.getBar = function(req, res) {
+	Revision.findYearDistribution(function(err, results){
+		if (err){
+			console.log("Find pie Error")
+		}else{
+			var dis = [['Year', 'Administrator', 'Anonymous', 'Bot', 'Regular user']]
+			//console.log(results.length)
+			
+			for (var i = 0; i < results.length; i++) {
+				var one = [5]
+				one[0] = results[i]._id
+				for (var j = 0; j < results[i].distribution.length; j++){
+					if (results[i].distribution[j].userType == "admin") {
+						one[1] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "anon") {
+						one[2] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "bot") {
+						one[3] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "regular") {
+						one[4] = results[i].distribution[j].count
+					}
+				}
+				dis.push(one)
+			}
+			res.json(dis);
+		}
+	})
+}
+

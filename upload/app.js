@@ -3,8 +3,6 @@ var express = require('express');
 var app = express();
 var multer  = require('multer')
 var fs = require('fs');
-var upload = multer({ dest: 'upload/' });
-var app = express();
 
 //prepare uploading folder
 var createFolder = function(folder){
@@ -41,6 +39,7 @@ app.get('/load', function (req, res) {
 })
 
 app.post('/upload', upload.single('resource'), function(req, res, next){
+	console.log(req)
 	var file = req.file;
 	if (file.mimetype.indexOf("image") >= 0) {
 		res.write("<a href=\"" + "http://localhost:2000/load?query=" +file.path +"\">"+ file.path+"</a></br> " )

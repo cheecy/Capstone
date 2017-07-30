@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+
+var express = require('express')
+var router = express.Router()
+var uploadController = require('../controllers/upload.server.controller')
+
+var fs = require('fs');
+var multer  = require('multer')
+var createFolder = function(folder){
+    try{
+        fs.accessSync(folder); 
+    }catch(e){
+        fs.mkdirSync(folder);
+    }  
+};
+
+var uploadFolder = './upload/';
+createFolder(uploadFolder);
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);  
+    }
+});
+var upload = multer({ storage: storage })
+
+router.get('/', uploadController.index)
+router.get('/load', uploadController.load)
+router.post('/upload', uploadController.upload, uploadController.publish)
+
+module.exports = router

@@ -1,0 +1,30 @@
+thead
+	tr
+		th Statistics
+		th Article Name
+		th Value
+tbody
+	tr
+		td The article with the most number of revisions
+		td #{revision.mostRevision._id}
+		td #{revision.mostRevision.numOfEdits}
+	tr
+		td The article with the least number of revisions
+		td #{revision.leastRevision._id}
+		td #{revision.leastRevision.numOfEdits}
+	tr
+		td The article edited by largest group of registered users
+		td #{revision.largestGroup._id}
+		td #{revision.largestGroup.count}
+	tr
+		td The article edited by smallest group of registered users
+		td #{revision.smallestGroup._id}
+		td #{revision.smallestGroup.count}
+	tr
+		td The article with the longest history
+		td #{revision.longestHistory._id}
+		td #{revision.longestHistory.history}
+	tr
+		td The article with the smallest history
+		td #{revision.shortestHistory._id}
+		td #{revision.shortestHistory.history}

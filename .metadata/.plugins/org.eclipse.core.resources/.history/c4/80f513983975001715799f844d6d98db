@@ -1,0 +1,29 @@
+doctype html
+
+html(lang="en")
+head
+	title  revision
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	script(src="https://www.gstatic.com/charts/loader.js")
+	script(src="/js/mainpage.js")
+	link(rel='stylesheet'
+		 type='text/css'
+		 href='../css/tablestyle.css'
+		 media='screen')
+body
+	select#select
+	
+	div#title
+	table#overallTable
+	
+	div
+		button#bar Show Bar Chart
+		button#pie Show Pie Chart
+		button#user Show user contribution
+	
+	div
+		p#barchart
+	div
+		p#piechart
+	div
+		p#userchart

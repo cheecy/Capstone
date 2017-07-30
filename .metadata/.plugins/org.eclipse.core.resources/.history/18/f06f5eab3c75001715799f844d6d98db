@@ -1,0 +1,66 @@
+var multer  = require('multer')
+var fs = require('fs');
+
+module.exports.index = function (req, res) {
+	res.render("mainpage.pug")
+}
+module.exports.upload = function(req, res) {
+	var createFolder = function(folder){
+	    try{
+	        fs.accessSync(folder); 
+	    }catch(e){
+	        fs.mkdirSync(folder);
+	    }  
+	};
+
+	var uploadFolder = './upload/';
+	createFolder(uploadFolder);
+
+	var storage = multer.diskStorage({
+	    destination: function (req, file, cb) {
+	        cb(null, uploadFolder);    
+	    },
+	    filename: function (req, file, cb) {
+	        cb(null, file.originalname);  
+	    }
+	});
+	var upload = multer({ storage: storage })
+	upload.single('resource')
+}
+
+module.exports.publish = function(req, res) {
+	
+}
+
+module.exports.load = function(req, res) {
+	Revision.findYearDistribution(function(err, results){
+		if (err){
+			console.log("Find pie Error")
+		}else{
+			var dis = [['Year', 'Administrator', 'Anonymous', 'Bot', 'Regular user']]
+			//console.log(results.length)
+			
+			for (var i = 0; i < results.length; i++) {
+				var one = [5]
+				one[0] = results[i]._id
+				for (var j = 0; j < results[i].distribution.length; j++){
+					if (results[i].distribution[j].userType == "admin") {
+						one[1] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "anon") {
+						one[2] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "bot") {
+						one[3] = results[i].distribution[j].count
+					}
+					if (results[i].distribution[j].userType == "regular") {
+						one[4] = results[i].distribution[j].count
+					}
+				}
+				dis.push(one)
+			}
+			res.json(dis);
+		}
+	})
+}
+
