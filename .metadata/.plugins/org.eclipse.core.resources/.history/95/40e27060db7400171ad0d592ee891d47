@@ -59,8 +59,8 @@ app.post('/upload', upload.single('resource'), function(req, res, next){
 		unzipper.on('extract', function (log) {
 			
 		    console.log('Finished extracting');
-		    //console.log(file.name)
-		    walk('./upload/' + file.filename.substring(0, file.filename.lastIndexOf(".")))
+		    console.log(file.name)
+		    walk('./upload')
 		    console.log(fileList)
 			for (var i = 0; i < fileList.length; i ++) {
 				res.write("<a href=\"" +fileList[i] +"\">"+ fileList[i].substring(fileList[i].indexOf("./upload"))+"</a></br> " )

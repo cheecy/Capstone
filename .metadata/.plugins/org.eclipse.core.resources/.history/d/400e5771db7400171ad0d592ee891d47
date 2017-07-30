@@ -60,7 +60,7 @@ app.post('/upload', upload.single('resource'), function(req, res, next){
 			
 		    console.log('Finished extracting');
 		    //console.log(file.name)
-		    walk('./upload/' + file.filename.substring(0, file.filename.lastIndexOf(".")))
+		    walk('./upload' + file.filename)
 		    console.log(fileList)
 			for (var i = 0; i < fileList.length; i ++) {
 				res.write("<a href=\"" +fileList[i] +"\">"+ fileList[i].substring(fileList[i].indexOf("./upload"))+"</a></br> " )
